@@ -13,63 +13,42 @@ function SnakeGameLogic() {
 
 SnakeGameLogic.prototype.up = function() {
   // 위쪽 화살표를 눌렀을때 머리기준으로 꼬리가 올라간다.
-  // 위쪽 화살표 키를 누르면 실행되는 함수
-  const lastTail = this.joints.pop()
-  //마지막꺼  뒤에 붙인다
-  this.joints.push(lastTail);
+  console.log("up");
+  const tail = this.joints.pop();
+  tail.x = this.joints[0].x;
+  tail.y = this.joints[0].y - 1;
+  this.joints.unshift(tail);
   console.log(this.joints);
-  // 첫번째 꺼 
-  const tail = this.joints.shift()
-  console.log(tail)
-  // 위치를 바꿔준 후
-  tail.x = lastTail.x;
-  tail.y = lastTail.y - 1
-  // x축으로 붙인다.
-  this.joints.push(tail);
-  console.log(this.joints)
-  // console.log("up");
 };
 
 SnakeGameLogic.prototype.down = function() {
   // 아래쪽 화살표를 눌렀을때 머리기준으로 꼬리가 내려간다.
   // 아래쪽 화살표 키를 누르면 실행되는 함수
-  const tail = this.joints.pop()
-  tail.x = this.joints[0].x
-  tail.y = this.joints[0].y + 1
-  console.log(tail)
+  console.log("down");
+  const tail = this.joints.pop();
+  tail.x = this.joints[0].x;
+  tail.y = this.joints[0].y + 1;
+  console.log(tail);
   this.joints.unshift(tail);
-  console.log(this.joints)
-  // console.log("down");
+  console.log(this.joints);
 };
 
 SnakeGameLogic.prototype.left = function() {
   // 왼쪽 화살표 키를 누르면 실행되는 함수
-  // 마지막 꺼
-  const lastTail = this.joints.pop()
-  //마지막꺼  뒤에 붙인다
-  this.joints.push(lastTail);
+  console.log("left");
+  const tail = this.joints.pop();
+  tail.x = this.joints[0].x - 1;
+  tail.y = this.joints[0].y;
+  this.joints.unshift(tail);
   console.log(this.joints);
-  // 첫번째 꺼 
-  const tail = this.joints.shift()
-  console.log(tail)
-  // 위치를 바꿔준 후
-  tail.x = lastTail.x - 1
-  tail.y = lastTail.y;
-  // x축으로 붙인다.
-  this.joints.push(tail);
-  console.log(this.joints)
 };
 
 SnakeGameLogic.prototype.right = function() {
   // 오른쪽 화살표 키를 누르면 실행되는 함수
+  console.log("right");
   const tail = this.joints.pop();
-  console.log(tail);
-  // 위치를 바꿔준 후
-  // x축으로 붙인다.
   tail.x = this.joints[0].x + 1;
   tail.y = this.joints[0].y;
-  console.log(tail);
-  // 머리 앞에 갖다 붙인다!
   this.joints.unshift(tail);
   console.log(this.joints);
 };
@@ -79,6 +58,11 @@ SnakeGameLogic.prototype.nextState = function() {
   // 게임이 아직 끝나지 않았으면 `true`를 반환
   // 게임이 끝났으면 `false`를 반환
   console.log(`nextState`);
+  if (this.joints[0].x < 0 || this.joints[0].x >= COLS) {
+    return false;
+  } else if (this.joints[0].y < 0 || this.joints[0].y >= ROWS) {
+    return false;
+  }
   return true;
 };
 
