@@ -8,7 +8,7 @@ import {
   DELAY_EXPONENT,
   GAME_ROOT
 } from './config';
-import SnakeGameLogic from './SnakeGameLogic';
+import SnakeGameLogic from './SnakeGameLogic_me';
 
 import './index.css';
 
